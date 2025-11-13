@@ -96,7 +96,14 @@
 
 ## 快速开始
 
-### 1. 安装依赖
+### 1. 克隆项目
+
+```bash
+git clone https://github.com/geosharkJerry/GEOSHARK.git
+cd GEOSHARK
+```
+
+### 2. 安装依赖
 
 ```bash
 # 后端依赖
@@ -106,31 +113,51 @@ pip install -r requirements.txt
 cd frontend && npm install
 ```
 
-### 2. 配置环境
+### 3. 配置环境
 
-创建 `.env` 文件：
+复制 `.env.example` 并重命名为 `.env`：
 
-```env
-DATABASE_URL=sqlite:///./rwa_assets.db
-BLOCKCHAIN_RPC_URL=http://localhost:8545
-PRIVATE_KEY=your_private_key
-CONTRACT_ADDRESS=your_contract_address
+```bash
+cp .env.example .env
 ```
 
-### 3. 启动服务
+编辑 `.env` 文件，配置必要的参数：
+
+```env
+# 数据库配置
+DATABASE_URL=sqlite:///./data/rwa_assets.db
+
+# 区块链配置
+BLOCKCHAIN_RPC_URL=http://localhost:8545
+BLOCKCHAIN_NETWORK=ethereum
+PRIVATE_KEY=your_private_key
+
+# 合约地址（部署后填写）
+ASSET_NFT_CONTRACT=0x...
+ASSET_TOKEN_CONTRACT=0x...
+
+# API配置
+API_HOST=0.0.0.0
+API_PORT=8000
+DEBUG=true
+```
+
+### 4. 启动服务
 
 ```bash
 # 启动后端API（端口8000）
+cd /home/user/webapp
 python backend/main.py
 
-# 启动前端开发服务器（端口3000）
-cd frontend && npm start
+# 或使用uvicorn
+uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-### 4. 访问系统
+### 5. 访问系统
 
-- **API文档**：http://localhost:8000/docs
-- **Web界面**：http://localhost:3000
+- **API文档（Swagger）**：http://localhost:8000/docs
+- **API文档（ReDoc）**：http://localhost:8000/redoc
+- **API根路径**：http://localhost:8000/
 
 ## API接口示例
 
